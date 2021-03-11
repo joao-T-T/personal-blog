@@ -27,6 +27,7 @@
 
 .app__sidebar {
     grid-area: sidebar;
+    border: 0;
 }
 
 .app__footer {
