@@ -1,7 +1,7 @@
 <template>
     <div class="home">
-        <NewPost />
-        <Post
+        <PostEdit v-if="newPost" />
+        <PostContainer
             v-for="(post, index) in posts"
             :key="`post-${index}`"
 
@@ -12,27 +12,32 @@
 
 <script>
 import { defineAsyncComponent, computed, onMounted } from 'vue'
+import { onBeforeRouteLeave } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
     components: {
-        Post: defineAsyncComponent(() => import('components/post')),
-        NewPost: defineAsyncComponent(() => import('components/privileged/new-post'))
+        PostContainer: defineAsyncComponent(() => import('components/containers/post')),
+        PostEdit: defineAsyncComponent(() => import('components/privileged/post-edit'))
     },
 
     setup() {
         const store = useStore()
         const posts = store.getters['post/items']
 
-
-        onMounted(() => {
+        onMounted(async () => {
             if( posts.length === 0 ) {
-                store.dispatch('post/getAll')
+                await store.dispatch('post/getAll')
             }
+        })
+
+        onBeforeRouteLeave(() => {
+            store.dispatch('admin/shiftNewPost', false)
         })
         
         return {
-            posts: computed(() => store.getters['post/items'])
+            posts: computed(() => store.getters['post/items']),
+            newPost: computed(() => store.getters['admin/newPost'])
         }
     }
 }

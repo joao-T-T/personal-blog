@@ -1,37 +1,51 @@
-export default (http) => ({
-    get() {
-        return http.post('describe')
-        .then(({ data }) => {
-            console.log(data)
-        })
-        .catch(error => error)
-        .finally(() => {})
-    },
-    getAll({ commit }) {
-        return http.post('getAll')
+export default (http, initialState = {}) => ({
+
+    get: ({ commit }, payload) => new Promise((resolve, reject) => http.post('get', payload)
         .then(({ data }) => {
             const { result } = data
 
-            console.log(result)
+            commit('ITEM_GET', result)
+            resolve(result)
+
+        }, (error) => error)
+        .finally(() => {})
+    ),
+
+    getAll: ({ commit }, payload) => new Promise((resolve, reject) => http.post('getAll', payload)
+        .then(({ data }) => {
+            const { result } = data
+
             commit('ITEMS_GET', result)
-        })
-        .catch(error => error)
+            resolve(result)
+
+        }, (error) => error)
         .finally(() => {})
-    },
-    save({ commit }, payload) {
-        return http.post('save', payload)
+    ),
+
+    save: ({ commit }, payload) => new Promise((resolve, reject) => http.post('save', payload)
         .then(({ data }) => {
-            //
-        })
-        .catch(error => error)
+            const { result } = data
+
+            commit('ITEM_SAVE', result)
+            resolve(result)
+
+        }, (error) => error)
         .finally(() => {})
-    },
-    remove() {
-        return http.post('remove')
+    ),
+    
+    remove: ({ commit }, payload) => new Promise((resolve, reject) => http.post('remove', payload)
         .then(({ data }) => {
-            //
-        })
-        .catch(error => error)
+            const { result } = data
+
+            commit('ITEM_REMOVE', result)
+            resolve(result)
+
+        }, (error) => error)
         .finally(() => {})
-    }
+    ),
+
+    clear: ({ commit }) => new Promise((resolve) => {
+        commit('ITEM_CLEAR', initialState)
+        resolve(initialState)
+    })
 })

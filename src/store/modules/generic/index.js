@@ -8,10 +8,20 @@ export default class Module {
     http = null
     route = null
     state_ = {
-        item: {},
+        item: {
+            _id: '',
+            slug: '',
+            created_at: '',
+            updated_at: '',
+        },
         items: [],
         filtered: [],
     }
+
+    state = {}
+    actions = {}
+    getters = {}
+    mutations = {}
 
     appendProperty(name, prop) {
         this[name] = {
@@ -34,17 +44,48 @@ export default class Module {
         })
 
         if( defaults === undefined || defaults === true ) {
+
             Object.assign(this, {
-                state: this.state_,
-                actions: actions_(http),
-                getters: getters_,
+                state: {
+                    ...this.state_,
+                    ...state,
+
+                    item: {
+                        ...this.state_.item,
+                        ...(state.item || {}),
+                    }
+                }
+            })
+
+            this.initialState = JSON.parse(JSON.stringify(this.state))
+
+            Object.assign(this, {
+                actions: actions_(http, this.initialState),
+                getters: getters_(this.initialState),
                 mutations: mutations_,
             })
+
+        } else {
+
+            if( state ) {
+
+                this.state = {
+                    ...this.state,
+                    ...(state || {}),
+
+                    item: {
+                        ...(this.state.item || {}),
+                        ...(( state && state.item ) ? state.item : {})
+                    }
+                }
+            }
+
+            this.initialState = JSON.parse(JSON.stringify(this.state))
+
         }
 
-        this.appendProperty('state', state)
-        this.appendProperty('actions', actions && actions(http))
-        this.appendProperty('getters', getters)
+        this.appendProperty('actions', actions && actions(http, this.initialState))
+        this.appendProperty('getters', getters && getters(this.initialState))
         this.appendProperty('mutations', mutations)
     }
 

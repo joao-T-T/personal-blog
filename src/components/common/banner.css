@@ -1,10 +1,13 @@
 .banner {
     position: relative;
-    padding: 1em;
+    padding: 2em 0;
 }
 
 .banner__text {
     font-size: 35pt;
+    text-align: center;
+
+    cursor: pointer;
 }
 
 .banner__year {

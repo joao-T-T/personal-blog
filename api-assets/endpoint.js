@@ -1,5 +1,5 @@
 const polyfill = require('../isomorphic/polyfill')
-const { isPathPublic } = require('./publicPaths')
+const { isPathPublic } = require('./routes')
 
 const endpoint = (callback) => async (req, res) => {
     try {

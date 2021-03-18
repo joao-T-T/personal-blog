@@ -6,17 +6,17 @@ export default class User extends Module {
             namespaced: true,
             defaults: false,
             route: 'user',
-        })
 
-        this.appendProperty('state', {
-            isAuthenticated: false,
-            isAdmin: false,
-            pair: {
-                username: '',
-                password: ''
-            },
-            currentUser: {
-                token: '',
+            state: {
+                isAuthenticated: false,
+                isAdmin: false,
+                pair: {
+                    username: '',
+                    password: ''
+                },
+                currentUser: {
+                    token: ''
+                }
             }
         })
 
@@ -35,7 +35,7 @@ export default class User extends Module {
         })
 
         this.appendProperty('mutations', {
-            USER_AUTH(state, payload) {
+            USER_AUTH: (state, payload) => {
                 state.currentUser = payload
             }
         })

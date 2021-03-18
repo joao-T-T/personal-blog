@@ -1,10 +1,23 @@
 <template>
     <EntryContainer>
         <template v-slot:title>
-            Nova publicação
+            {{
+                post._id
+                    ? 'Editar publicação'
+                    : 'Nova publicação'
+            }}
         </template>
         <template v-slot:content>
             <FormContainer>
+                <FormLabel>
+                    <div>Slug</div>
+                    <input
+                        class="form__input"
+                        type="text"
+
+                        v-model="post.slug"
+                    />
+                </FormLabel>
                 <FormLabel>
                     <div>Título</div>
                     <input
@@ -31,7 +44,8 @@
 </template>
 
 <script>
-import { defineAsyncComponent, reactive } from 'vue'
+import { defineAsyncComponent, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
@@ -40,20 +54,27 @@ export default {
     },
 
     setup() {
+        const router = useRouter()
         const store = useStore()
-        const post = reactive(store.getters['post/item'])
 
-        function savePost() {
-            store.dispatch('post/save', post)
+        async function savePost() {
+            const { slug } = await store.dispatch('post/save', store.getters['post/item'])
+
+            router.push({
+                name: 'post',
+                params: {
+                    slug
+                }
+            })
         }
 
         return {
             store,
-            post,
+            post: computed(() => store.getters['post/item']),
             savePost
         }
-    }
+    },
 }
 </script>
 
-<style scoped src="./new-post.css"></style>
+<style scoped src="./post-edit.css"></style>

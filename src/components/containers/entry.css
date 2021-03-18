@@ -9,3 +9,19 @@
 
     margin-bottom: 1em;
 }
+
+.entry__content {
+    white-space: pre;
+}
+
+.entry__bottom {
+    margin-top: 2em;
+    color: #666;
+}
+
+* >>> .entry__action {
+    display: inline-block;
+    margin-right: .8em;
+
+    cursor: pointer;
+}

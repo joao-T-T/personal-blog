@@ -12,9 +12,9 @@
     box-sizing: border-box;
 }
 
-.app > * {
+/* .app > * {
     border: 1px solid black;
-}
+} */
 
 .app__banner {
     grid-area: banner;
@@ -45,5 +45,9 @@
             "footer footer footer";
 
         padding: 2px;
+    }
+
+    .app__main {
+        min-height: 0;
     }
 }

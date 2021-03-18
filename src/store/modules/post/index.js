@@ -5,12 +5,12 @@ export default class Post extends Module {
         super({
             namespaced: true,
             route: 'post',
-        })
 
-        this.appendProperty('state', {
-            item: {
-                title: '',
-                content: ''
+            state: {
+                item: {
+                    title: '',
+                    content: ''
+                }
             }
         })
     }
