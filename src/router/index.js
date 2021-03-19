@@ -8,6 +8,12 @@ const publicRoutes = [
         meta: { title: 'Página inicial' }
     },
     {
+        name: 'config',
+        path: '/config',
+        component: () => import('views/privileged/config'),
+        meta: { title: 'Configurações' }
+    },
+    {
         name: 'post',
         path: '/post/:slug',
         component: () => import('views/post'),
@@ -35,6 +41,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+    const { title } = to.meta || {}
+    if( title ) {
+        document.title = title
+    }
+
     window.scrollTo(0, 0)
 
     next()

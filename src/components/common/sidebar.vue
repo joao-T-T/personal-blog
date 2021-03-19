@@ -4,13 +4,14 @@
         <Changelog />
         <Categories v-if="false" />
 
-        <Privileged />
-        <Signin />
+        <Privileged v-if="isAuthenticated" />
+        <Signin v-else />
     </div>
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, computed } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
     components: {
@@ -19,6 +20,13 @@ export default {
         Categories: defineAsyncComponent(() => import('components/sidebar/categories')),
         Privileged: defineAsyncComponent(() => import('components/sidebar/privileged')),
         Signin: defineAsyncComponent(() => import('components/sidebar/signin'))
+    },
+    setup() {
+        const store = useStore()
+
+        return {
+            isAuthenticated: computed(() => store.getters['user/isAuthenticated']),
+        }
     }
 }
 </script>

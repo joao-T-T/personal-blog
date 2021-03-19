@@ -19,7 +19,9 @@ export default class Admin extends Module {
 
         this.appendProperty('mutations', {
             NEWPOST_SHIFT: (state, payload) => {
-                state.newPost = payload || !state.newPost
+                state.newPost = payload === undefined
+                    ? !state.newPost
+                    : payload
             }
         })
 

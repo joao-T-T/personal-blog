@@ -4,9 +4,9 @@
             Administração
         </template>
         <template v-slot:content>
-            <Button @click="shiftNewPost">
-                Nova publicação
-            </Button>
+            <Button @click="shiftNewPost">Nova publicação</Button>
+            <Button @click="goToConfig">Configurações</Button>
+            <Button @click="signout">Sair</Button>
         </template>
     </SidebarItemContainer>
 </template>
@@ -35,8 +35,18 @@ export default {
             }
         }
 
+        function goToConfig() {
+            router.push({ name: 'config' })
+        }
+
+        function signout() {
+            store.dispatch('user/signout')
+        }
+
         return {
-            shiftNewPost
+            shiftNewPost,
+            goToConfig,
+            signout
         }
     }
 }

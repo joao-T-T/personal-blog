@@ -44,15 +44,11 @@
 </template>
 
 <script>
-import { defineAsyncComponent, computed } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
-    components: {
-        EntryContainer: defineAsyncComponent(() => import('components/containers/entry'))
-    },
-
     setup() {
         const router = useRouter()
         const store = useStore()

@@ -21,10 +21,8 @@ module.exports = class Controller {
                 created_at: -1
             })
     }
-    save({ body }) {
-        const { _id } = body
-
-        return _id
+    save({ body: { _id, ...body } }) {
+        return typeof _id === 'string' && _id.length > 0
             ? this.model.findOneAndUpdate({ _id }, body, { new: true, runValidators: true })
             : this.model.create(body)
     }

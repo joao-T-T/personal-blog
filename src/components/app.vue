@@ -28,3 +28,5 @@ export default {
 </script>
 
 <style scoped src="./app.css"></style>
+<style src="~/static/css/theme.css"></style>
+<style src="~/static/css/main.css"></style>

@@ -1,5 +1,7 @@
 const polyfill = require('../isomorphic/polyfill')
-const { isPathPublic } = require('./routes')
+const { isRoutePublic } = require('./routes')
+
+const AuthService = require('./services/auth')
 
 const endpoint = (callback) => async (req, res) => {
     try {
@@ -17,7 +19,17 @@ const endpoint = (callback) => async (req, res) => {
             return
         }
 
-        return await callback(req, res, 'auth123')
+        const authToken = req.headers.authorization?.split('Bearer ').pop()
+        const authPayload = authToken && AuthService.decodeToken(authToken)
+        
+        if( !isRoutePublic(req.url) ) {
+            if( !AuthService.verifyToken(authToken) ) {
+                throw new Error('invalid signature')
+            }
+
+        }
+
+        return await callback(req, res, authPayload)
 
     } catch( error ) {
         const { message } = error;

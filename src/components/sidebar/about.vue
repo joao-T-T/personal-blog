@@ -1,18 +1,28 @@
 <template>
     <SidebarItemContainer>
         <template v-slot:title>
-            Sobre o blog
+            Sobre o blog e sobre o autor
         </template>
         <template v-slot:content>
-            Tudo começou em março de 2021, quando algo surpreendente aconteceu...
+            <div class="about">
+                {{ about.trim() }}
+            </div>
         </template>
     </SidebarItemContainer>
 </template>
 
 <script>
+import { about } from '~/blog'
 import Base from './base'
 
 export default {
-    extends: Base
+    extends: Base,
+    setup() {
+        return {
+            about
+        }
+    }
 }
 </script>
+
+<style scoped src="./about.css"></style>

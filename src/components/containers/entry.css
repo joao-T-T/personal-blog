@@ -1,22 +1,28 @@
 .entry {
-    border: 1px solid red;
     padding: .5em;
+    background: var(--color-close-bg);
+    box-shadow: var(--shadow-small);
 }
 
 .entry__title {
     font-size: 1.3em;
     font-weight: bold;
+}
 
-    margin-bottom: 1em;
+.entry__details {
+    font-size: .9em;
+    margin-top: .4em;
+    color: var(--color-soft);
 }
 
 .entry__content {
-    white-space: pre;
+    margin-top: 1em;
+    white-space: pre-wrap;
 }
 
 .entry__bottom {
     margin-top: 2em;
-    color: #666;
+    color: var(--color-soft);
 }
 
 * >>> .entry__action {

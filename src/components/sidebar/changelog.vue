@@ -4,7 +4,12 @@
             Changelog
         </template>
         <template v-slot:content>
-            v0.0 — naquele jeitao
+            <a href="https://github.com/ringeringeraja/personal-blog">
+                https://github.com/ringeringeraja/personal-blog
+            </a>
+            <ul>
+                <li>v1.0.0: versão minimamente funcional</li>
+            </ul>
         </template>
     </SidebarItemContainer>
 </template>

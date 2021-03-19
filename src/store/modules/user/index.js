@@ -22,21 +22,36 @@ export default class User extends Module {
 
         this.appendProperty('actions', {
             signin: ({ commit }, payload) => {
-                this.http.post('signin', payload)
+                return this.http.post('signin', payload)
                     .then(({ data }) => {
                         const { result } = data
-                        commit('USER_AUTH', result)
+                        commit('USER_SIGNIN', result)
 
                     })
                     .catch(error => error)
                     .finally(() => {})
 
+            },
+            signout: ({ commit }) => {
+                commit('USER_SIGNOUT')
             }
         })
 
         this.appendProperty('mutations', {
-            USER_AUTH: (state, payload) => {
+            USER_SIGNIN: (state, payload) => {
+                state.isAuthenticated = true
+                state.isAdmin = true
                 state.currentUser = payload
+                state.pair = this.initialState.pair
+
+                sessionStorage.setItem('auth:token', payload.token)
+            },
+            USER_SIGNOUT: (state) => {
+                state.isAuthenticated = false
+                state.isAdmin = false
+                state.currentUser = {}
+
+                sessionStorage.removeItem('auth:token')
             }
         })
 

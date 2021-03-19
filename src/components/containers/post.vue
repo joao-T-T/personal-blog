@@ -12,14 +12,22 @@
                 {{ post.title }}
             </div>
         </template>
+        <template v-slot:details>
+            <div>
+                Publicado em {{ post.created_at.formatDate() }}
+            </div>
+            <div v-if="post.created_at !== post.updated_at">
+                Atualizado em {{ post.updated_at.formatDate() }}
+            </div>
+        </template>
         <template v-slot:content>
             {{
-                isPreview && post.content.length > 60
-                    ? post.content.slice(0, 57) + '...'
+                isPreview && post.content.length > 200
+                    ? post.content.slice(0, 197) + '...'
                     : post.content
             }}
         </template>
-        <template v-slot:bottom>
+        <template v-slot:bottom v-if="isPreview || $slots.bottom">
             <div
                 class="post__readmore"
                 @click="goToPost(post)"
@@ -35,8 +43,6 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
-
 export default {
     props: {
         post: {
@@ -47,9 +53,6 @@ export default {
             type: Boolean,
             default: true,
         }
-    },
-    components: {
-        EntryContainer: defineAsyncComponent(() => import('components/containers/entry'))
     },
 }
 </script>

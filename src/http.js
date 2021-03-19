@@ -9,10 +9,22 @@ export default class AxiosWrapper {
         this.baseRoute = baseRoute
 
         this.instance.interceptors.request.use((config) => {
-            return {
+
+            const newConfig = {
                 ...config,
                 url: `${baseRoute}@${config.url}`
             }
+
+            const authToken = sessionStorage.getItem('auth:token')
+            if( authToken ) {
+                Object.assign(newConfig, {
+                    headers: {
+                        authorization: `Bearer ${authToken}`
+                    }
+                })
+            }
+
+            return newConfig
         })
 
         Object.assign(this, this.instance)

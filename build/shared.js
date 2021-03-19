@@ -25,6 +25,7 @@ module.exports = (mode, name = 'main') => ({
         ],
         alias: {
             '@': path.resolve(__dirname, '../src'),
+            '~': path.resolve(__dirname, '../'),
             components: path.resolve(__dirname, '../src/components'),
             views: path.resolve(__dirname, '../src/views')
         },

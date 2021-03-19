@@ -1,17 +1,22 @@
 <template>
     <div class="footer">
-        Versão {{ version }}
+        Versão {{ version }} — {{ email }}
     </div>
 </template>
 
 <script>
-import { version } from '../../../package.json'
+import { version } from '~/package'
+import { email } from '~/blog'
+
 
 export default {
     setup() {
         return {
-            version
+            version,
+            email
         }
     }
 }
 </script>
+
+<style scoped src="./footer.css"></style>

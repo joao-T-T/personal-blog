@@ -1,12 +1,17 @@
 .banner {
     position: relative;
-    padding: 2em 0;
+    padding: 3em 0;
 }
 
 .banner__text {
-    font-size: 35pt;
+    font-size: 37pt;
+    font-weight: bold;
     text-align: center;
 
+    text-transform: uppercase;
+    text-shadow: var(--shadow-small);
+
+    color: #fff;
     cursor: pointer;
 }
 
@@ -14,4 +19,10 @@
     position: absolute;
     bottom: .3em;
     right: .5em;
+}
+
+@media screen and (max-width: 600px) {
+    .banner__text {
+        font-size: 10vw;
+    }
 }

@@ -2,12 +2,7 @@
     border: 1px solid green;
 }
 
-.post__title {
-    color: blue;
-}
-
 .post__title--preview {
-    color: red;
     cursor: pointer;
 }
 

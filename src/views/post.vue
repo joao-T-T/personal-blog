@@ -4,7 +4,7 @@
             :post="post"
             :is-preview="false"
         >
-            <template v-slot:bottom>
+            <template v-slot:bottom v-if="isAuthenticated">
                 <div
                     class="entry__action"
                     @click="editPost"
@@ -68,7 +68,8 @@ export default {
         return {
             store,
             post: computed(() => store.getters['post/item']),
-
+            isAuthenticated: computed(() => store.getters['user/isAuthenticated']),
+            
             editPost,
             removePost,
         }

@@ -1,10 +1,12 @@
-const publicPaths = [
-    'api/.*'
-]
+const publicRoutes = require('./publicRoutes')
 
-const isPathPublic = () => publicPaths.some((regex) => new RegExp(regex).test(req.url))
+const isRoutePublic = (url) => {
+    return publicRoutes
+        .map((route) => new RegExp(route + '($|\\?)'))
+        .some((regex) => regex.test(url))
+}
 
 module.exports = {
-    publicPaths,
-    isPathPublic
+    publicRoutes,
+    isRoutePublic
 }

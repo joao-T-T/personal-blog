@@ -32,7 +32,9 @@ export default {
         })
 
         onBeforeRouteLeave(() => {
-            store.dispatch('admin/shiftNewPost', false)
+            if( store.getters['admin/newPost'] == true ) {
+                store.dispatch('admin/shiftNewPost', false)
+            }
         })
         
         return {

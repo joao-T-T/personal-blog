@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 
 import Button from 'components/utils/button'
+import EntryContainer from 'components/containers/entry'
 import FormContainer from 'components/containers/form'
 import FormLabelContainer from 'components/containers/form-label'
 
@@ -29,6 +30,7 @@ createApp(App)
     .use(store)
     .mixin(mixin)
     .component('Button', Button)
+    .component('EntryContainer', EntryContainer)
     .component('FormContainer', FormContainer)
     .component('FormLabel', FormLabelContainer)
     .mount('#root')

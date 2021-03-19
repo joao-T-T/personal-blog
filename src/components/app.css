@@ -1,8 +1,8 @@
 .app {
     display: grid;
 
-    grid-gap: 1.2em;
-    grid-template-columns: 20vw auto 30vw;
+    grid-gap: .8em;
+    grid-template-columns: 1fr 1.05fr .95fr;
     grid-template-areas:
      "banner banner banner"
      "main main sidebar"
@@ -37,7 +37,7 @@
 @media screen and (max-width: 600px) {
     .app {
         grid-gap: .5em;
-        grid-template-columns: auto;
+        grid-template-columns: 1fr;
         grid-template-areas:
             "banner banner banner"
             "main main main"

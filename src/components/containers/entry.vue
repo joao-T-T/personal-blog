@@ -7,6 +7,12 @@
             <slot name="title"></slot>
         </div>
         <div
+            class="entry__details"
+            v-if="$slots.details"
+        >
+            <slot name="details"></slot>
+        </div>
+        <div
             class="entry__content"
             v-if="$slots.content"
         >
